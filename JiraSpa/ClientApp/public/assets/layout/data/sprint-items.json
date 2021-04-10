@@ -1,0 +1,34 @@
+{
+	"data": [
+		{
+			"id": "1000",
+			"key": "BLI-0001",
+			"type": "Bug",
+			"summary": "Implement Story 1",
+			"status": "To-Do",
+			"points": 3,
+			"labels": "Accessories,Others",
+			"added": true
+		},
+		{
+			"id": "1000",
+			"key": "BLI-0002",
+			"type": "Story",
+			"summary": "Implement Story 2",
+			"status": "To-Do",
+			"points": 5,
+			"labels": "Accessories,Others",
+			"added": false
+		},
+		{
+			"id": "1000",
+			"key": "BLI-0003",
+			"type": "Enabler",
+			"summary": "Implement Story 3",
+			"status": "To-Do",
+			"points": 8,
+			"labels": "Accessories,Others",
+			"added": false
+		},
+	]
+}
