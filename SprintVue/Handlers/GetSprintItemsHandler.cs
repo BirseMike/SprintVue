@@ -1,4 +1,4 @@
-﻿using JiraSpa.Services;
+﻿using SprintVue.Services;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace JiraSpa.Handlers
+namespace SprintVue.Handlers
 {
 
     public class GetSprintItemsCommand : IRequest<SprintItem[]>

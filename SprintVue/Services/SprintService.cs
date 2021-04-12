@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JiraSpa.Services
+namespace SprintVue.Services
 {
     public class SprintService : ISprintService
     {

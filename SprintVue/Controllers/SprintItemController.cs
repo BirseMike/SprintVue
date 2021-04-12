@@ -1,4 +1,4 @@
-﻿using JiraSpa.Handlers;
+﻿using SprintVue.Handlers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JiraSpa.Controllers
+namespace SprintVue.Controllers
 {
     [ApiController]
     [Route("[controller]")]

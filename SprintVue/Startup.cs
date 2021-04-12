@@ -1,20 +1,14 @@
-using JiraSpa.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using SprintVue.Services;
 using System.Reflection;
-using System.Threading.Tasks;
 using VueCliMiddleware;
 
-namespace JiraSpa
+namespace SprintVue
 {
     public class Startup
     {
