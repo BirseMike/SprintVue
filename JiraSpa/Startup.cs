@@ -1,3 +1,5 @@
+using JiraSpa.Services;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using VueCliMiddleware;
 
@@ -30,6 +33,8 @@ namespace JiraSpa
             {
                 configuration.RootPath = "ClientApp";
             });
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddTransient<ISprintService, SprintService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

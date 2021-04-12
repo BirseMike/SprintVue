@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JiraSpa.Handlers;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,27 +14,23 @@ namespace JiraSpa.Controllers
     public class SprintItemController : ControllerBase
     {
         private readonly ILogger<SprintItemController> _logger;
+        private IMediator _mediator;
 
-        public SprintItemController(ILogger<SprintItemController> logger)
+        public SprintItemController(ILogger<SprintItemController> logger, IMediator mediator)
         {
             _logger = logger;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public IEnumerable<dynamic> Get()
+        public async Task<IActionResult> Get(string sprintId)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new {
-                id= "1000",
-                key= $"BLI-000{index}",
-                type= "Bug",
-                summary=$"Implement Story {index}",
-                status= "To-Do",
-                points= 3,
-                labels= "Accessories,Others",
-                added= true
-            })
-            .ToArray();
+            var command = new GetSprintItemsCommand
+            {
+                Id = sprintId
+            };
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }
