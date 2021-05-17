@@ -5,16 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using SprintVue.Models;
 
 namespace SprintVue.Handlers
 {
 
-    public class GetSprintItemsCommand : IRequest<SprintItem[]>
+    public class GetSprintItemsCommand : IRequest<IEnumerable<SprintItem>>
     {
         public string Id { get; set; }    
     }
 
-    public class GetSprintItemsHandler : IRequestHandler<GetSprintItemsCommand, SprintItem[]>
+    public class GetSprintItemsHandler : IRequestHandler<GetSprintItemsCommand, IEnumerable<SprintItem>>
     {
         private readonly ISprintService _sprintService;
 
@@ -23,7 +24,7 @@ namespace SprintVue.Handlers
             _sprintService = sprintService;
         }
 
-        Task<SprintItem[]> IRequestHandler<GetSprintItemsCommand, SprintItem[]>.Handle(GetSprintItemsCommand command,
+        Task<IEnumerable<SprintItem>> IRequestHandler<GetSprintItemsCommand, IEnumerable<SprintItem>>.Handle(GetSprintItemsCommand command,
             CancellationToken cancellationToken)
         {
             var items = _sprintService.GetSprintItems(command.Id);

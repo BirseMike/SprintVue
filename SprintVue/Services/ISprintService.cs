@@ -1,12 +1,20 @@
-﻿namespace SprintVue.Services
+﻿using SprintVue.Models;
+using System.Collections.Generic;
+
+namespace SprintVue.Services
 {
     public interface ISprintService
     {
-        SprintItem[] GetSprintItems(string sprint);
-       
-        //TODO - GetSprints
-        //TODO - GetStatistics
-        //GetBurnCharts
-        //TODO -GetReport
+        IEnumerable<Sprint> GetSprints();
+        IList<SprintItem> GetFullBackLog();
+        IList<SprintItem> GetAllBackLogItems();
+        IEnumerable<SprintItem> GetSprintItems(string sprintId);
+        SprintReport GetSprintReport(string sprintId);
+    }
+
+
+    public interface IJiraLogger
+    {
+        void Log(string logMessage);
     }
 }

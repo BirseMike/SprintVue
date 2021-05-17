@@ -106,6 +106,8 @@ export default {
 			},
 			events: null,
 			sprintItems: null,
+			sprints: null,
+			sprintReport: null,
 			selectedProducts: null,
 			lineData: {
 				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -146,7 +148,9 @@ export default {
 		this.sprintService = new SprintService();
 	},
 	mounted() {
-		this.sprintService.getSprintItems().then(data => this.sprintItems = data);
+        this.sprintService.getSprints().then(data => this.sprints = data);
+        this.sprintService.getSprintItems('Sprint-1').then(data => this.sprintItems = data);
+        this.sprintService.getSprintReport('Sprint-1').then(data => this.sprintReport = data);
 
 		let afId = this.$route.query['af_id'];
         if (afId) {
