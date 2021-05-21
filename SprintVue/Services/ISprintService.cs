@@ -10,8 +10,8 @@ namespace SprintVue.Services
         IList<SprintItem> GetAllBackLogItems();
         IEnumerable<SprintItem> GetSprintItems(string sprintId);
         SprintReport GetSprintReport(string sprintId);
-        BurnUpData GetSprintBurnUp(string sprintId)
-
+        BurnUpData GetSprintBurnUp(string sprintId);
+    }
 
     public interface IJiraLogger
     {

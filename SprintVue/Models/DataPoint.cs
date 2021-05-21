@@ -2,7 +2,7 @@
 
 namespace SprintVue.Models
 {
-    internal class DataPoint
+    public class DataPoint
     {
         public int PointsChange { get; set; }
         public DateTime ChangeDate { get; set; }
