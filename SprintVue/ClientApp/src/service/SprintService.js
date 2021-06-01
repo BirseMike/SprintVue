@@ -17,4 +17,8 @@ export default class SprintService {
             .then(res => res.data);
     }
 
+    getSprintBurnUp(sprintId) {
+        return axios.get('/sprintBurnUp?sprintId=' + sprintId)
+            .then(res => res.data);
+    }
 }
