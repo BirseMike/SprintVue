@@ -88,6 +88,9 @@
             <div class="card">
                 <Gauge type="gauge" :data="gaugeData" :options="gaugeOptions" />
             </div>
+            <div class="card">
+                <Chart type="scatter" :data="scatterData" :options="scatterOptions"  />
+            </div>
         </div>
 
     </div>
@@ -131,7 +134,23 @@
                         text: 'Sprint Progress'
                     },
                 },
-
+                scatterOptions: {
+                    scales: {
+                        xAxes:
+                            [{
+                                ticks: {
+                                    userCallback: function (label, index) {
+                                        return "Day " + index;
+                                    }
+                                }
+                            }]
+                    },
+                    elements: {
+                        line: {
+                            tension: 0, // bezier curves,
+                        }
+                    }
+                },
             }
         },
         sprintService: null,
@@ -165,6 +184,56 @@
                         data: [Object.keys(this.sprintReport.items).length, Object.keys(this.sprintReport.items).length-5],
                         backgroundColor: ['green', 'orange'],
                     }]
+                }
+            },
+            scatterData: function () {
+                return {
+                    labels: ['June', 'July', 'August', 'September', 'October', 'November', 'December', 'February', 'March', 'April', 'May'],
+                    datasets: [{
+                        label: "Load",
+                        borderColor: "green",
+                        borderWidth: 2,
+                        showLine: true,
+                        fill: false,
+                        data: [{
+                            x: 0,
+                            y: 3
+                        }, {
+                            x: 1,
+                            y: 3
+                        },
+                        {
+                            x: 1,
+                            y: 5
+                        },
+                        {
+                            x: 2,
+                            y: 50
+                        }]
+                    },
+                    {
+                        label: "Burn Up",
+                        borderColor: "red",
+                        borderWidth: 2,
+                        showLine: true,
+                        fill: false,
+                        data: [{
+                            x: 0,
+                            y: 5
+                        }, {
+                            x: 1,
+                            y: 10
+                        },
+                        {
+                            x: 1,
+                            y: 5
+                        },
+                        {
+                            x: 2,
+                            y: 10
+                        }]
+                    }]
+
                 }
             }
         },

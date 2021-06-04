@@ -56,12 +56,18 @@ namespace SprintVue.Services
 
         public BurnUpData GetSprintBurnUp(string sprintId)
         {
+            var sprint = GetSprints().FirstOrDefault(s => s.Key == sprintId);
+            var sprintLength = ((TimeSpan)(sprint.ScheduledEnd - sprint.Start)).Days;
+
+            //todo make the data a set of matching arrays..
+
             return new BurnUpData
             {
-                LoadPoints = new List<DataPoint> { new DataPoint { ChangeDate = DateTime.Now.AddDays(-5), PointsChange = 5 } },
-                BurnPoints = new List<DataPoint> { 
-                    new DataPoint { ChangeDate = DateTime.Now.AddDays(-3), PointsChange = 3 },
-                    new DataPoint { ChangeDate = DateTime.Now, PointsChange = 2 },
+                SprintDays = Enumerable.Range(0, sprintLength).Select(day => sprint.Start.AddDays(day)).ToArray(),
+                LoadPoints = new List<DataPoint> { new DataPoint { ChangeDate = sprint.Start.AddDays(0), PointsChange = 5 } },
+                BurnPoints = new List<DataPoint> {
+                    new DataPoint { ChangeDate = sprint.Start.AddDays(3), PointsChange = 3 },
+                    new DataPoint { ChangeDate = sprint.Start.AddDays(10), PointsChange = 2 },
                 }
             };
         }
@@ -75,7 +81,8 @@ namespace SprintVue.Services
             {
                 Key = $"Sprint-{index}",
                 Start = DateTime.Today.AddDays(-15*index),
-                Ended = DateTime.Today.AddDays((-15 * index)+14)
+                ScheduledEnd = DateTime.Today.AddDays((-15 * index)+14),
+                Ended = DateTime.Today.AddDays((-15 * index) + 14)
             })
             .ToArray();
         }
