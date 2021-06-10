@@ -64,10 +64,17 @@ namespace SprintVue.Services
             return new BurnUpData
             {
                 SprintDays = Enumerable.Range(0, sprintLength).Select(day => sprint.Start.AddDays(day)).ToArray(),
-                LoadPoints = new List<DataPoint> { new DataPoint { ChangeDate = sprint.Start.AddDays(0), PointsChange = 5 } },
+                LoadPoints = new List<DataPoint> { 
+                    new DataPoint { ChangeDate = sprint.Start.AddDays(0), PointsChange = 20 },
+                    new DataPoint { ChangeDate = sprint.Start.AddDays(2), PointsChange = 17 },
+                    new DataPoint { ChangeDate = sprint.Start.AddDays(sprintLength-1), PointsChange = 17 },
+                },
                 BurnPoints = new List<DataPoint> {
+                    new DataPoint { ChangeDate = sprint.Start.AddDays(0), PointsChange = 0 },
                     new DataPoint { ChangeDate = sprint.Start.AddDays(3), PointsChange = 3 },
-                    new DataPoint { ChangeDate = sprint.Start.AddDays(10), PointsChange = 2 },
+                    new DataPoint { ChangeDate = sprint.Start.AddDays(8), PointsChange = 8 },
+                    new DataPoint { ChangeDate = sprint.Start.AddDays(10), PointsChange = 11 },
+                    new DataPoint { ChangeDate = sprint.Start.AddDays(sprintLength-1), PointsChange = 11 },
                 }
             };
         }

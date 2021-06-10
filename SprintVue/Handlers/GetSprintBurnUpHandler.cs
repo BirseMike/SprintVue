@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using SprintVue.Models;
 using SprintVue.Services;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,12 +9,12 @@ using System.Threading.Tasks;
 namespace SprintVue.Handlers
 {
 
-    public class GetSprintBurnUpCommand : IRequest<BurnUpData>
+    public class GetSprintBurnUpCommand : IRequest<BurnUpChartData>
     {
         public string Id { get; set; }    
     }
 
-    public class GetSprintBurnUpHandler : IRequestHandler<GetSprintBurnUpCommand, BurnUpData>
+    public class GetSprintBurnUpHandler : IRequestHandler<GetSprintBurnUpCommand, BurnUpChartData>
     {
         private readonly ISprintService _sprintService;
 
@@ -22,13 +23,23 @@ namespace SprintVue.Handlers
             _sprintService = sprintService;
         }
 
-        Task<BurnUpData> IRequestHandler<GetSprintBurnUpCommand, BurnUpData>.Handle(GetSprintBurnUpCommand command,
+        Task<BurnUpChartData> IRequestHandler<GetSprintBurnUpCommand, BurnUpChartData>.Handle(GetSprintBurnUpCommand command,
             CancellationToken cancellationToken)
         {
             var burnUpData = _sprintService.GetSprintBurnUp(command.Id);
-            burnUpData.BurnPoints = burnUpData.BurnPoints.GroupBy(x => x.ChangeDate).Select(x => new DataPoint { ChangeDate = x.Key, PointsChange = x.Sum(p => p.PointsChange) }).ToList();
-            burnUpData.LoadPoints = burnUpData.LoadPoints.GroupBy(x => x.ChangeDate).Select(x => new DataPoint { ChangeDate = x.Key, PointsChange = x.Sum(p => p.PointsChange) }).ToList();
-            return Task.FromResult(burnUpData);
+            var sprintDays = burnUpData.SprintDays.ToList();
+            var burnUpChartData = new BurnUpChartData
+            {
+                BurnPoints = burnUpData.BurnPoints.Select(x => new { x = sprintDays.IndexOf(x.ChangeDate), y = x.PointsChange }).ToArray(),
+                LoadPoints = burnUpData.LoadPoints.Select(x => new { x = sprintDays.IndexOf(x.ChangeDate), y = x.PointsChange }).ToArray()
+            };
+            return Task.FromResult(burnUpChartData);
         }
+    }
+
+    public class BurnUpChartData
+    {
+        public dynamic[] LoadPoints { get; set; }
+        public dynamic[] BurnPoints { get; set; }
     }
 }

@@ -83,13 +83,10 @@
         </div>
         <div class="p-col-12 p-lg-6">
             <div class="card">
-                <Chart type="line" :data="lineData" />
+                <Chart type="scatter" :data="scatterData" :options="scatterOptions" />
             </div>
             <div class="card">
                 <Gauge type="gauge" :data="gaugeData" :options="gaugeOptions" />
-            </div>
-            <div class="card">
-                <Chart type="scatter" :data="scatterData" :options="scatterOptions"  />
             </div>
         </div>
 
@@ -108,26 +105,7 @@
                 sprintItems: [],
                 sprints: [],
                 sprintReport: { items: ["1"] },
-                sprintBurnUp: null,
-                lineData: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                    datasets: [
-                        {
-                            label: 'Load',
-                            data: [65, 59, 80, 81, 56, 55, 40],
-                            fill: false,
-                            backgroundColor: '#2f4860',
-                            borderColor: '#2f4860'
-                        },
-                        {
-                            label: 'Burned',
-                            data: [28, 48, 40, 19, 86, 27, 90],
-                            fill: false,
-                            backgroundColor: '#00bb7e',
-                            borderColor: '#00bb7e'
-                        }
-                    ]
-                },
+                sprintBurnUp: { BurnPoints : [], LoadPoints:[]},
                 gaugeOptions: {
                     title: {
                         display: true,
@@ -139,8 +117,9 @@
                         xAxes:
                             [{
                                 ticks: {
-                                    userCallback: function (label, index) {
-                                        return "Day " + index;
+                                    userCallback: function (label) {
+                                        var day = label + 1;
+                                        return "Day " + day;
                                     }
                                 }
                             }]
@@ -188,28 +167,13 @@
             },
             scatterData: function () {
                 return {
-                    labels: ['June', 'July', 'August', 'September', 'October', 'November', 'December', 'February', 'March', 'April', 'May'],
                     datasets: [{
                         label: "Load",
                         borderColor: "green",
                         borderWidth: 2,
                         showLine: true,
                         fill: false,
-                        data: [{
-                            x: 0,
-                            y: 3
-                        }, {
-                            x: 1,
-                            y: 3
-                        },
-                        {
-                            x: 1,
-                            y: 5
-                        },
-                        {
-                            x: 2,
-                            y: 50
-                        }]
+                        data: this.sprintBurnUp.loadPoints
                     },
                     {
                         label: "Burn Up",
@@ -217,21 +181,7 @@
                         borderWidth: 2,
                         showLine: true,
                         fill: false,
-                        data: [{
-                            x: 0,
-                            y: 5
-                        }, {
-                            x: 1,
-                            y: 10
-                        },
-                        {
-                            x: 1,
-                            y: 5
-                        },
-                        {
-                            x: 2,
-                            y: 10
-                        }]
+                        data: this.sprintBurnUp.burnPoints
                     }]
 
                 }
