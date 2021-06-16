@@ -30,8 +30,8 @@ namespace SprintVue.Handlers
             var sprintDays = burnUpData.SprintDays.ToList();
             var burnUpChartData = new BurnUpChartData
             {
-                BurnPoints = burnUpData.BurnPoints.Select(x => new { x = sprintDays.IndexOf(x.ChangeDate), y = x.PointsChange }).ToArray(),
-                LoadPoints = burnUpData.LoadPoints.Select(x => new { x = sprintDays.IndexOf(x.ChangeDate), y = x.PointsChange }).ToArray()
+                BurnPoints = burnUpData.BurnPoints.Select(x => new { x = sprintDays.IndexOf(x.ChangeDate), y = x.PointsChange, label = x.ChangeDate }).ToArray(),
+                LoadPoints = burnUpData.LoadPoints.Select(x => new { x = sprintDays.IndexOf(x.ChangeDate), y = x.PointsChange, label = x.ChangeDate }).ToArray()
             };
             return Task.FromResult(burnUpChartData);
         }

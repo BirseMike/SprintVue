@@ -57,6 +57,15 @@ namespace SprintVue.Services
         public BurnUpData GetSprintBurnUp(string sprintId)
         {
             var sprint = GetSprints().FirstOrDefault(s => s.Key == sprintId);
+            if (sprint == null)
+                return new BurnUpData()
+                {
+                    SprintDays = new DateTime[0],
+                    BurnPoints = new List<DataPoint>(),
+                    LoadPoints = new List<DataPoint>()
+                };
+
+
             var sprintLength = ((TimeSpan)(sprint.ScheduledEnd - sprint.Start)).Days;
 
             //todo make the data a set of matching arrays..

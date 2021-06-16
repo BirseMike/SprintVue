@@ -41,7 +41,8 @@ export default {
             overlayMenuActive: false,
             mobileMenuActive: false,
             menu : [
-                {label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/'},
+                {label: 'Sprint Dashboard', icon: 'pi pi-fw pi-home', to: '/'},
+                { label: 'Trends', icon: 'pi pi-fw pi-compass', to: '/icons' },
             ]
         }
     },

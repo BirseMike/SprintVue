@@ -1,5 +1,8 @@
 <template>
     <div class="p-grid p-fluid dashboard">
+        <div class="p-col-12 ">
+            <Dropdown v-model="selectedSprint" :options="sprints" optionLabel="key" placeholder="Select" @change="loadSprint($event.value)" />
+        </div>
         <div class="p-col-12 p-lg-4">
             <div class="card summary">
                 <span class="title">Load</span>
@@ -104,6 +107,7 @@
                 },
                 sprintItems: [],
                 sprints: [],
+                selectedSprint: null,
                 sprintReport: { items: ["1"] },
                 sprintBurnUp: { BurnPoints : [], LoadPoints:[]},
                 gaugeOptions: {
@@ -117,9 +121,8 @@
                         xAxes:
                             [{
                                 ticks: {
-                                    userCallback: function (label) {
-                                        var day = label + 1;
-                                        return "Day " + day;
+                                    userCallback: function (value) {
+                                        return "Day " + value;
                                     }
                                 }
                             }]
@@ -139,13 +142,7 @@
         mounted() {
             this.sprintService.getSprints()
                 .then(data => this.sprints = data);
-            this.sprintService.getSprintItems('Sprint-1')
-                .then(data => this.sprintItems = data);
-            this.sprintService.getSprintReport('Sprint-1')
-                .then(data => this.sprintReport = data);
-            this.sprintService.getSprintBurnUp('Sprint-1')
-                .then(data => this.sprintBurnUp = data);
-
+            
             let afId = this.$route.query['af_id'];
             if (afId) {
                 let today = new Date();
@@ -190,7 +187,17 @@
         methods: {
             formatCurrency(value) {
                 return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            },
+
+            loadSprint(value) {
+                this.sprintService.getSprintItems(value.key)
+                    .then(data => this.sprintItems = data);
+                this.sprintService.getSprintReport(value.key)
+                    .then(data => this.sprintReport = data);
+                this.sprintService.getSprintBurnUp(value.key)
+                    .then(data => this.sprintBurnUp = data);
             }
+
         }
     }
 </script>
