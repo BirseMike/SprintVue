@@ -7,21 +7,21 @@
             <div class="card summary">
                 <span class="title">Load</span>
                 <span class="detail">No of stories in sprint</span>
-                <span class="count visitors">5</span>
+                <span class="count visitors">{{sprintItems.length}}</span>
             </div>
         </div>
         <div class="p-col-12 p-lg-4">
             <div class="card summary">
                 <span class="title">Stories In Acceptance</span>
                 <span class="detail">No of stories awaiting approval</span>
-                <span class="count purchases">2</span>
+                <span class="count purchases">{{sprintItems.length}}</span>
             </div>
         </div>
         <div class="p-col-12 p-lg-4">
             <div class="card summary">
                 <span class="title">Stories Completed</span>
                 <span class="detail">No of completed stories</span>
-                <span class="count revenue">3</span>
+                <span class="count revenue">{{sprintItems.length}}</span>
             </div>
         </div>
 

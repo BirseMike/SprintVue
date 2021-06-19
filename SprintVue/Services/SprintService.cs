@@ -20,7 +20,7 @@ namespace SprintVue.Services
                 { 4,"Done" },
             };
 
-            return Enumerable.Range(1, 100).Select(index => new
+            return Enumerable.Range(1, 50).Select(index => new
             SprintItem
             {
                 Id = $"{rng.Next(5)}3000",
