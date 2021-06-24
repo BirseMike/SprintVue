@@ -7,21 +7,21 @@
             <div class="card summary">
                 <span class="title">Load</span>
                 <span class="detail">No of stories in sprint</span>
-                <span class="count visitors">{{sprintItems.length}}</span>
+                <span class="count visitors">{{sprintReport.noStoriesInSprint}}</span>
             </div>
         </div>
         <div class="p-col-12 p-lg-4">
             <div class="card summary">
                 <span class="title">Stories In Acceptance</span>
                 <span class="detail">No of stories awaiting approval</span>
-                <span class="count purchases">{{sprintItems.length}}</span>
+                <span class="count purchases">{{sprintReport.noStoriesInAcceptance}}</span>
             </div>
         </div>
         <div class="p-col-12 p-lg-4">
             <div class="card summary">
                 <span class="title">Stories Completed</span>
                 <span class="detail">No of completed stories</span>
-                <span class="count revenue">{{sprintItems.length}}</span>
+                <span class="count revenue">{{sprintReport.noStoriesCompleted}}</span>
             </div>
         </div>
 
@@ -156,8 +156,8 @@
                 // `this` points to the vm instance
                 return {
                     datasets: [{
-                        value: 2.5,
-                        data: [Object.keys(this.sprintReport.items).length, Object.keys(this.sprintReport.items).length-5],
+                        value: this.sprintReport.pointsCompleted,
+                        data: [this.sprintReport.pointsCommitted, this.sprintReport.pointsAdded],
                         backgroundColor: ['green', 'orange'],
                     }]
                 }

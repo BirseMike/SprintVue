@@ -27,7 +27,7 @@ namespace SprintVue.Services
                 Key = $"BLI-{index}000",
                 Type = "Bug",
                 Summary = $"Implement Story {index}",
-                Status = statuses[rng.Next(1,4)],
+                Status = statuses[rng.Next(1,5)],
                 Points = index,
                 Labels = "Accessories,Others",
                 Added = index % 2 == 0,
@@ -48,9 +48,20 @@ namespace SprintVue.Services
 
         public SprintReport GetSprintReport(string sprintId)
         {
+            var rng = new Random();
+            var items = GetSprintItems(sprintId).ToList();
             return new SprintReport
             {
-                Items = GetSprintItems(sprintId).ToDictionary(x => x.Key, x => x.Points.ToString())
+                NoStoriesAdded = items.Count(x => x.Added),
+                NoStoriesRemoved = rng.Next(1, items.Count(x => x.Status != "Done")),
+                NoStoriesInSprint = items.Count(),
+                NoStoriesCommitted = items.Count(x => !x.Added),
+                NoStoriesInAcceptance = items.Count(x => x.Status == "In Acceptance"),
+                NoStoriesCompleted = items.Count(x => x.Status == "Done"),
+                PointsCommitted = items.Where(x => !x.Added).Sum(s => s.Points),
+                PointsAdded = items.Where(x => x.Added).Sum(s => s.Points),
+                PointsCompleted = items.Where(x => x.Status == "Done").Sum(p => p.Points),
+                Items = items.ToDictionary(x => x.Key, x => x.Points.ToString())
             };
         }
 
